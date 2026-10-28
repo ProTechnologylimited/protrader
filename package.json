@@ -1,0 +1,13 @@
+{
+  "name": "protrader-app",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ProTrader by ProTechnology Limited - trading, memecoin launchpad, tokenized IPOs, airdrops, earn and bots (front-end prototype).",
+  "license": "MIT",
+  "author": "protechnology limited",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx serve . -l 5173"
+  }
+}
