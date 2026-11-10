@@ -1,2 +1,33 @@
-node_modules
-.DS_Store
+﻿.env
+.env.*
+!.env.example
+node_modules/
+data/
+
+# ProTrader local-only data, backups, and generated artifacts
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+*.backup*
+*.bak*
+integration-review.txt
+js/server-before-customer-auth.mjs
+js/appkit.bundle.js
+
+# Android and Gradle generated files
+**/.gradle/
+**/build/
+**/.cxx/
+**/local.properties
+.idea/
+**/.idea/
+
+# Android release artifacts and signing credentials
+*.apk
+*.aab
+*.jks
+*.keystore
+*.p12
+*.pfx
+*.pem
+*.key

@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101116">
+  <meta name="description" content="The ProTrader community — discuss markets, get help and share feedback.">
+  <title>Community · ProTrader</title>
+  <style>
+    :root{color-scheme:dark;--bg:#101116;--surface:#1a1b22;--surface2:#22232c;--text:#f4f1ea;--muted:#a5a5b3;--accent:#8e82f4;--line:#343540;--green:#2fd9a6;--red:#ff7187;font-family:Inter,Manrope,system-ui,-apple-system,Segoe UI,sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% 0%,#252143 0,transparent 34rem),var(--bg);color:var(--text);min-height:100vh}a{color:inherit;text-decoration:none}button,input,textarea,select{font:inherit}button{cursor:pointer}.top{height:68px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100vw - 1180px)/2));background:#101116eF;position:sticky;top:0;z-index:3;backdrop-filter:blur(12px)}.brand{font-size:19px;font-weight:800;letter-spacing:.2px}.brand span{color:var(--accent)}.back{color:var(--muted);font-size:13px}.wrap{max-width:1180px;margin:34px auto;padding:0 22px 60px}.hero{display:flex;justify-content:space-between;align-items:end;gap:20px;margin-bottom:25px}.eyebrow{color:#b7afff;text-transform:uppercase;font-size:11px;font-weight:800;letter-spacing:1.4px}.hero h1{font-size:clamp(30px,4vw,43px);margin:8px 0 7px;letter-spacing:-1.2px}.hero p{margin:0;color:var(--muted);max-width:650px;line-height:1.6}.pill{border:1px solid #5c548f;border-radius:999px;padding:8px 12px;color:#d5d0ff;font-size:12px;white-space:nowrap}.layout{display:grid;grid-template-columns:190px minmax(0,1fr) 280px;gap:18px;align-items:start}.panel,.post,.composer{background:linear-gradient(160deg,#20212a,#191a21);border:1px solid var(--line);border-radius:16px}.panel{padding:16px}.panel h3{font-size:13px;margin:0 0 13px}.channels{display:grid;gap:7px}.channel{border:0;background:transparent;color:var(--muted);text-align:left;padding:11px 12px;border-radius:10px;font-size:13px}.channel:hover,.channel.active{background:#8e82f41e;color:#e9e5ff}.feedhead{display:flex;align-items:center;justify-content:space-between;margin:0 0 12px}.feedhead h2{font-size:18px;margin:0}.count{color:var(--muted);font-size:12px}.composer{padding:15px;margin-bottom:14px}.composer label,.fieldlabel{display:block;color:var(--muted);font-size:12px;margin-bottom:7px}.row{display:flex;gap:9px;align-items:center}.field,textarea,select{width:100%;background:#111218;border:1px solid #3b3c49;color:var(--text);border-radius:10px;padding:11px 12px;outline:none}.field:focus,textarea:focus,select:focus{border-color:var(--accent)}textarea{resize:vertical;min-height:92px;line-height:1.5}.composer-bottom{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:10px}.btn{border:1px solid #504a7b;background:#8e82f4;color:#11111a;border-radius:10px;padding:10px 15px;font-weight:750;font-size:13px}.btn.secondary{background:#272633;color:var(--text);border-color:var(--line)}.btn:disabled{opacity:.45;cursor:not-allowed}.note{font-size:11px;color:var(--muted);line-height:1.5}.post{padding:17px;margin-bottom:12px}.postmeta{display:flex;justify-content:space-between;gap:12px;align-items:center;color:var(--muted);font-size:11px}.author{color:#e8e5ff;font-weight:750;font-size:13px}.tag{background:#8e82f41c;color:#c9c2ff;border-radius:99px;padding:5px 9px;font-size:10px;text-transform:capitalize}.postbody{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.65;font-size:14px;margin:13px 0 15px}.postactions{display:flex;gap:8px;border-top:1px solid var(--line);padding-top:11px}.textbtn{background:none;border:0;padding:4px 8px;color:var(--muted);font-size:12px}.textbtn:hover{color:#fff}.replies{border-top:1px solid var(--line);margin-top:11px;padding-top:12px}.reply{padding:10px 0;border-bottom:1px solid #30313b}.reply:last-child{border:0}.reply .postbody{font-size:13px;margin:6px 0}.replyform{margin-top:12px;display:flex;gap:8px}.replyform textarea{min-height:45px}.rightstack{display:grid;gap:14px}.authbox form,.profilebox form{display:grid;gap:10px}.authswitch{display:flex;background:#111218;border-radius:10px;padding:4px;margin-bottom:13px}.authswitch button{flex:1;border:0;background:none;color:var(--muted);padding:8px;border-radius:8px;font-size:12px}.authswitch button.active{background:#38334e;color:#fff}.status{color:var(--muted);font-size:12px;line-height:1.5;min-height:17px;margin-top:9px}.status.error{color:var(--red)}.status.ok{color:var(--green)}.hidden{display:none!important}.empty{border:1px dashed #454653;border-radius:14px;padding:28px;text-align:center;color:var(--muted);font-size:13px;line-height:1.6}.rules{font-size:12px;color:var(--muted);line-height:1.65}.rules strong{color:var(--text)}.membername{font-weight:750;margin:0 0 8px}.smallmuted{font-size:11px;color:var(--muted);line-height:1.6}.footer{text-align:center;color:#777887;font-size:11px;margin-top:28px}
+    @media(max-width:960px){.layout{grid-template-columns:170px minmax(0,1fr)}.rightstack{grid-column:1/-1;grid-template-columns:1fr 1fr}.rightstack .panel{height:100%}}
+    @media(max-width:640px){.top{height:58px;padding:0 16px}.wrap{margin:24px auto;padding:0 14px 40px}.hero{display:block}.hero .pill{display:inline-block;margin-top:14px}.layout{display:flex;flex-direction:column}.layout>*,.rightstack{width:100%}.rightstack{display:flex;flex-direction:column}.channelbar{width:100%;overflow:auto}.channels{display:flex;min-width:max-content}.channel{white-space:nowrap}.panel.channels-panel{padding:11px}.post{padding:14px}.composer-bottom{align-items:stretch;flex-direction:column}.composer-bottom .btn{width:100%}}
+  </style>
+</head>
+<body>
+  <header class="top"><a class="brand" href="/">Pro<span>Trader</span></a><a class="back" href="/">← Back to trading</a></header>
+  <main class="wrap">
+    <section class="hero"><div><div class="eyebrow">ProTrader network</div><h1>Community</h1><p>Talk markets, ask questions, share product feedback and learn from other ProTrader members.</p></div><div class="pill">Public beta · Community preview</div></section>
+    <div class="layout">
+      <aside class="panel channels-panel"><h3>DISCUSSIONS</h3><div class="channelbar"><div class="channels" id="channels"><button class="channel active" data-channel="all">All discussions</button><button class="channel" data-channel="general">General</button><button class="channel" data-channel="markets">Market talk</button><button class="channel" data-channel="help">Help & support</button><button class="channel" data-channel="feedback">Product feedback</button></div></div></aside>
+      <section>
+        <div class="feedhead"><h2 id="feedTitle">All discussions</h2><span class="count" id="feedCount"></span></div>
+        <div class="composer hidden" id="composer"><label for="postBody">Start a discussion</label><textarea id="postBody" maxlength="2000" placeholder="Share a question, insight or suggestion…"></textarea><div class="composer-bottom"><label class="note" for="postChannel">Posting in <select id="postChannel" style="width:auto;margin-left:5px;padding:7px 9px"><option value="general">General</option><option value="markets">Market talk</option><option value="help">Help & support</option><option value="feedback">Product feedback</option></select></label><button class="btn" id="publishPost">Publish post</button></div></div>
+        <div id="feed" aria-live="polite"><div class="empty">Loading community discussions…</div></div>
+      </section>
+      <aside class="rightstack">
+        <section class="panel" id="accountPanel"><h3>MEMBER ACCESS</h3><div id="accountContent"></div></section>
+        <section class="panel rules"><h3>COMMUNITY GUIDELINES</h3><p><strong>Be respectful.</strong> Disagree with ideas, not people.</p><p><strong>Protect your account.</strong> Never share passwords, recovery phrases, private keys or authentication codes.</p><p><strong>Beware of impersonators.</strong> ProTrader staff will never ask you to send funds in a direct message.</p><p><strong>Trading involves risk.</strong> Community posts are user-generated opinions, not financial advice or verified investment recommendations.</p><p>Posts can be reported. Moderators may hide content that breaks these rules.</p></section>
+        <section class="panel" id="moderatorPanel"><h3>MODERATOR TOOLS</h3><div id="moderatorContent"><p class="smallmuted">Restricted to authorised ProTrader administrators.</p></div></section>
+      </aside>
+    </div>
+    <div class="footer">ProTrader by ProTechnology Limited · Community public beta · Be careful with unsolicited messages and financial claims.</div>
+  </main>
+<script>
+(() => {
+  const $ = (selector, root = document) => root.querySelector(selector);
+  const state = { channel: 'all', user: null, profile: null, authMode: 'login' };
+  const channelNames = { all: 'All discussions', general: 'General', markets: 'Market talk', help: 'Help & support', feedback: 'Product feedback' };
+
+  async function api(url, options = {}) {
+    const response = await fetch(url, {
+      credentials: 'same-origin',
+      ...options,
+      headers: { ...(options.body ? { 'Content-Type': 'application/json' } : {}), ...(options.headers || {}) },
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) throw new Error(data.error || `Request failed (${response.status}).`);
+    return data;
+  }
+
+  function status(message, kind = '') {
+    const node = $('#accountStatus');
+    if (!node) return;
+    node.textContent = message;
+    node.className = `status ${kind}`;
+  }
+
+  function element(tag, className, text) {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    if (text !== undefined) node.textContent = text;
+    return node;
+  }
+
+  function renderAccount() {
+    const root = $('#accountContent');
+    root.replaceChildren();
+
+    if (!state.user) {
+      const switcher = element('div', 'authswitch');
+      const loginTab = element('button', state.authMode === 'login' ? 'active' : '', 'Sign in');
+      const registerTab = element('button', state.authMode === 'register' ? 'active' : '', 'Create account');
+      loginTab.type = registerTab.type = 'button';
+      loginTab.onclick = () => { state.authMode = 'login'; renderAccount(); };
+      registerTab.onclick = () => { state.authMode = 'register'; renderAccount(); };
+      switcher.append(loginTab, registerTab);
+      root.append(switcher);
+
+      const form = element('form');
+      const email = element('input', 'field'); email.type = 'email'; email.required = true; email.maxLength = 254; email.autocomplete = 'email'; email.placeholder = 'Email address';
+      const pass = element('input', 'field'); pass.type = 'password'; pass.required = true; pass.minLength = 12; pass.maxLength = 200; pass.autocomplete = state.authMode === 'login' ? 'current-password' : 'new-password'; pass.placeholder = 'Passphrase (at least 12 characters)';
+      form.append(email, pass);
+      let confirm = null;
+      if (state.authMode === 'register') {
+        confirm = element('input', 'field'); confirm.type = 'password'; confirm.required = true; confirm.minLength = 12; confirm.maxLength = 200; confirm.autocomplete = 'new-password'; confirm.placeholder = 'Confirm passphrase'; form.append(confirm);
+      }
+      const submit = element('button', 'btn', state.authMode === 'login' ? 'Sign in' : 'Create account'); submit.type = 'submit'; form.append(submit);
+      form.onsubmit = async (event) => {
+        event.preventDefault(); submit.disabled = true; status('Working…');
+        try {
+          if (state.authMode === 'register') {
+            await api('/api/customer/register', { method: 'POST', body: JSON.stringify({ email: email.value, passphrase: pass.value, confirmPassphrase: confirm.value }) });
+          } else {
+            await api('/api/customer/login', { method: 'POST', body: JSON.stringify({ email: email.value, passphrase: pass.value }) });
+          }
+          await refreshAccount(); await loadPosts();
+        } catch (error) { status(error.message, 'error'); submit.disabled = false; }
+      };
+      root.append(form);
+      root.append(element('p', 'smallmuted', 'Use your ProTrader customer account. Your email is not displayed in community posts.'));
+      root.append(element('div', 'status', ''));
+      const statusNode = element('div', 'status'); statusNode.id = 'accountStatus'; root.append(statusNode);
+      return;
+    }
+
+    if (!state.profile) {
+      root.append(element('p', 'smallmuted', 'Choose a public display name before posting or replying. Your email remains private.'));
+      const form = element('form');
+      const name = element('input', 'field'); name.required = true; name.minLength = 3; name.maxLength = 24; name.placeholder = 'Community display name';
+      const submit = element('button', 'btn', 'Save display name'); submit.type = 'submit'; form.append(name, submit);
+      form.onsubmit = async (event) => {
+        event.preventDefault(); submit.disabled = true;
+        try { await api('/api/community/profile', { method: 'POST', body: JSON.stringify({ displayName: name.value }) }); await refreshAccount(); }
+        catch (error) { status(error.message, 'error'); submit.disabled = false; }
+      };
+      root.append(form);
+      const statusNode = element('div', 'status'); statusNode.id = 'accountStatus'; root.append(statusNode);
+      return;
+    }
+
+    root.append(element('p', 'smallmuted', 'SIGNED IN AS'));
+    root.append(element('p', 'membername', state.profile.displayName));
+    root.append(element('p', 'smallmuted', 'Your email is private. Community posts use your display name.'));
+    const logout = element('button', 'btn secondary', 'Sign out'); logout.type = 'button';
+    logout.onclick = async () => { logout.disabled = true; try { await api('/api/customer/logout', { method: 'POST', body: '{}' }); state.user = null; state.profile = null; renderAccount(); renderComposer(); await loadPosts(); } catch (error) { status(error.message, 'error'); logout.disabled = false; } };
+    root.append(logout);
+  }
+
+  async function refreshAccount() {
+    try {
+      const session = await api('/api/customer/me');
+      state.user = session.authenticated ? session.customer : null;
+      state.profile = null;
+      if (state.user) {
+        const profile = await api('/api/community/profile');
+        state.profile = profile.profile;
+      }
+    } catch {
+      state.user = null; state.profile = null;
+    }
+    renderAccount(); renderComposer();
+  }
+
+  function renderComposer() {
+    $('#composer').classList.toggle('hidden', !(state.user && state.profile));
+  }
+
+  function formatDate(value) {
+    const date = new Date(value);
+    return Number.isNaN(date.getTime()) ? '' : date.toLocaleString();
+  }
+
+  function makeReportButton(type, id) {
+    const button = element('button', 'textbtn', 'Report'); button.type = 'button';
+    button.onclick = async () => {
+      if (!state.user) { alert('Sign in to report content.'); return; }
+      const reason = prompt('Report reason: spam, scam, harassment, misinformation, or other', 'other');
+      if (!reason) return;
+      const normalized = reason.trim().toLowerCase();
+      if (!['spam','scam','harassment','misinformation','other'].includes(normalized)) { alert('Please enter one of the listed report reasons.'); return; }
+      try { await api('/api/community/reports', { method: 'POST', body: JSON.stringify({ targetType: type, targetId: id, reason: normalized }) }); alert('Thank you. Your report has been sent to the moderation team.'); }
+      catch (error) { alert(error.message); }
+    };
+    return button;
+  }
+
+  async function showReplies(post, target) {
+    target.replaceChildren(element('p', 'smallmuted', 'Loading replies…'));
+    try {
+      const data = await api(`/api/community/posts/${post.id}/replies`);
+      target.replaceChildren();
+      if (!data.replies.length) target.append(element('p', 'smallmuted', 'No replies yet. Start the conversation.'));
+      data.replies.forEach((reply) => {
+        const item = element('div', 'reply');
+        const meta = element('div', 'postmeta'); meta.append(element('span', 'author', reply.displayName), element('time', '', formatDate(reply.createdAt)));
+        item.append(meta, element('p', 'postbody', reply.body));
+        item.append(makeReportButton('reply', reply.id));
+        target.append(item);
+      });
+      if (state.user && state.profile) {
+        const form = element('form', 'replyform');
+        const text = element('textarea'); text.maxLength = 1000; text.required = true; text.placeholder = 'Write a reply…';
+        const send = element('button', 'btn', 'Reply'); send.type = 'submit'; form.append(text, send);
+        form.onsubmit = async (event) => {
+          event.preventDefault(); send.disabled = true;
+          try { await api(`/api/community/posts/${post.id}/replies`, { method: 'POST', body: JSON.stringify({ body: text.value }) }); await showReplies(post, target); await loadPosts(); }
+          catch (error) { alert(error.message); send.disabled = false; }
+        };
+        target.append(form);
+      } else {
+        target.append(element('p', 'smallmuted', 'Sign in and set a display name to reply.'));
+      }
+    } catch (error) { target.replaceChildren(element('p', 'status error', error.message)); }
+  }
+
+  function renderPosts(posts) {
+    const feed = $('#feed'); feed.replaceChildren();
+    $('#feedCount').textContent = `${posts.length} ${posts.length === 1 ? 'post' : 'posts'}`;
+    if (!posts.length) { feed.append(element('div', 'empty', 'No discussions here yet. Be the first to start one.')); return; }
+
+    posts.forEach((post) => {
+      const card = element('article', 'post');
+      const meta = element('div', 'postmeta');
+      const left = element('div'); left.append(element('span', 'author', post.displayName), document.createTextNode('  ·  '), element('time', '', formatDate(post.createdAt)));
+      meta.append(left, element('span', 'tag', channelNames[post.channel] || post.channel));
+      card.append(meta, element('p', 'postbody', post.body));
+      const actions = element('div', 'postactions');
+      const replies = element('button', 'textbtn', `Replies (${post.replyCount})`); replies.type = 'button';
+      const replyArea = element('div', 'replies hidden');
+      replies.onclick = async () => { const opening = replyArea.classList.contains('hidden'); replyArea.classList.toggle('hidden', !opening); if (opening) await showReplies(post, replyArea); };
+      actions.append(replies, makeReportButton('post', post.id));
+      card.append(actions, replyArea); feed.append(card);
+    });
+  }
+
+  async function loadPosts() {
+    $('#feed').replaceChildren(element('div', 'empty', 'Loading community discussions…'));
+    $('#feedTitle').textContent = channelNames[state.channel];
+    try {
+      const data = await api(`/api/community/posts?channel=${encodeURIComponent(state.channel)}&limit=40`);
+      renderPosts(data.posts || []);
+    } catch (error) { $('#feed').replaceChildren(element('div', 'empty', error.message)); }
+  }
+
+  function moderatorStatus(message, kind = '') {
+    const node = $('#moderatorStatus');
+    if (!node) return;
+    node.textContent = message;
+    node.className = `status ${kind}`;
+  }
+
+  async function renderModerator() {
+    const root = $('#moderatorContent');
+    root.replaceChildren();
+    try {
+      await api('/api/admin/me');
+      const reportsData = await api('/api/admin/community/reports');
+      root.append(element('p', 'smallmuted', 'Signed in as an administrator. Pending reports are shown below.'));
+      const logout = element('button', 'btn secondary', 'Moderator sign out');
+      logout.type = 'button';
+      logout.onclick = async () => {
+        logout.disabled = true;
+        try { await api('/api/admin/logout', { method: 'POST', body: '{}' }); await renderModerator(); }
+        catch (error) { moderatorStatus(error.message, 'error'); logout.disabled = false; }
+      };
+      root.append(logout);
+      const reports = reportsData.reports || [];
+      root.append(element('p', 'smallmuted', `${reports.length} pending report${reports.length === 1 ? '' : 's'}`));
+      if (!reports.length) root.append(element('p', 'smallmuted', 'The queue is clear.'));
+      reports.forEach((report) => {
+        const item = element('div', 'reply');
+        item.append(element('p', 'smallmuted', `Report #${report.id} · ${report.targetType} #${report.targetId} · ${report.reason}`));
+        item.append(element('p', 'postbody', report.targetBody || '[Content unavailable]'));
+        item.append(element('p', 'smallmuted', `Reported by ${report.reporter || 'member'} · ${formatDate(report.createdAt)}`));
+        const actions = element('div', 'row');
+        const hide = element('button', 'btn', 'Hide content'); hide.type = 'button';
+        hide.onclick = async () => {
+          hide.disabled = true;
+          try { await api('/api/admin/community/moderate', { method: 'POST', body: JSON.stringify({ type: report.targetType, id: report.targetId, action: 'hide' }) }); await renderModerator(); await loadPosts(); }
+          catch (error) { alert(error.message); hide.disabled = false; }
+        };
+        const dismiss = element('button', 'btn secondary', 'Dismiss report'); dismiss.type = 'button';
+        dismiss.onclick = async () => {
+          dismiss.disabled = true;
+          try { await api('/api/admin/community/dismiss-report', { method: 'POST', body: JSON.stringify({ reportId: report.id }) }); await renderModerator(); }
+          catch (error) { alert(error.message); dismiss.disabled = false; }
+        };
+        actions.append(hide, dismiss); item.append(actions); root.append(item);
+      });
+      const statusNode = element('div', 'status'); statusNode.id = 'moderatorStatus'; root.append(statusNode);
+    } catch {
+      const intro = element('p', 'smallmuted', 'Administrator sign-in is required to review reports and moderate posts.'); root.append(intro);
+      const form = element('form');
+      const username = element('input', 'field'); username.required = true; username.maxLength = 100; username.autocomplete = 'username'; username.placeholder = 'Administrator username';
+      const password = element('input', 'field'); password.type = 'password'; password.required = true; password.maxLength = 200; password.autocomplete = 'current-password'; password.placeholder = 'Administrator password';
+      const submit = element('button', 'btn secondary', 'Moderator sign in'); submit.type = 'submit';
+      form.append(username, password, submit);
+      form.onsubmit = async (event) => {
+        event.preventDefault(); submit.disabled = true;
+        try {
+          await api('/api/admin/login', { method: 'POST', body: JSON.stringify({ username: username.value, password: password.value }) });
+          password.value = '';
+          await renderModerator();
+        } catch (error) {
+          const msg = element('div', 'status error', error.message); form.append(msg); submit.disabled = false;
+        }
+      };
+      root.append(form);
+    }
+  }
+
+  $('#channels').addEventListener('click', (event) => {
+    const button = event.target.closest('[data-channel]'); if (!button) return;
+    state.channel = button.dataset.channel;
+    document.querySelectorAll('[data-channel]').forEach((item) => item.classList.toggle('active', item === button));
+    loadPosts();
+  });
+
+  $('#publishPost').addEventListener('click', async () => {
+    const button = $('#publishPost'), text = $('#postBody'), channel = $('#postChannel');
+    if (!text.value.trim()) return;
+    button.disabled = true;
+    try { await api('/api/community/posts', { method: 'POST', body: JSON.stringify({ channel: channel.value, body: text.value }) }); text.value = ''; await loadPosts(); }
+    catch (error) { alert(error.message); }
+    finally { button.disabled = false; }
+  });
+
+  (async () => { await refreshAccount(); await loadPosts(); await renderModerator(); })();
+  window.setInterval(() => { if (!document.hidden) loadPosts(); }, 30000);
+})();
+</script>
+</body>
+</html>

@@ -73,53 +73,205 @@
 
   /* ---------- Spot trading engine ---------- */
   const fail = (msg) => ({ ok: false, msg });
+
+  // Demo-only platform revenue ledger.
+  // Fees are recorded only after a trade successfully executes.
+  function recordPlatformFee(S, amount, details = {}) {
+    if (!(amount > 0) || !Number.isFinite(amount)) return;
+
+    S.s.platformFeesUSDT =
+      Number(S.s.platformFeesUSDT || 0) + amount;
+
+    if (!Array.isArray(S.s.platformFeeHistory)) {
+      S.s.platformFeeHistory = [];
+    }
+
+    S.s.platformFeeHistory.push({
+      id: u.uid('fee'),
+      amount,
+      currency: 'USDT',
+      ...details,
+      t: Date.now()
+    });
+
+    // Keep the most recent 500 fee records.
+    if (S.s.platformFeeHistory.length > 500) {
+      S.s.platformFeeHistory =
+        S.s.platformFeeHistory.slice(-500);
+    }
+  }
+
   PT.trading = {
     market(sym, side, qty) {
-      const a = bySym[sym], S = PT.store, fee = PT.config.fees.spot;
-      if (!(qty > 0)) return fail('Enter an amount greater than zero.');
+      const a = bySym[sym], S = PT.store;
+      const feeRate = PT.config.fees.spot;
+
+      if (!a) return fail('Unknown trading asset.');
+      if (side !== 'buy' && side !== 'sell') {
+        return fail('Invalid order side.');
+      }
+      if (!(qty > 0) || !Number.isFinite(qty)) {
+        return fail('Enter an amount greater than zero.');
+      }
+
       const val = a.price * qty;
+      const fee = val * feeRate;
+
       if (side === 'buy') {
-        if (!S.debit('USDT', val * (1 + fee))) return fail('Not enough USDT. Deposit more or lower the amount.');
+        if (!S.debit('USDT', val + fee)) {
+          return fail('Not enough USDT. Deposit more or lower the amount.');
+        }
         S.credit(sym, qty);
       } else {
-        if (!S.debit(sym, qty)) return fail('Not enough ' + sym + ' to sell.');
-        S.credit('USDT', val * (1 - fee));
+        if (!S.debit(sym, qty)) {
+          return fail('Not enough ' + sym + ' to sell.');
+        }
+        S.credit('USDT', val - fee);
       }
-      S.log('trade', `${side === 'buy' ? 'Bought' : 'Sold'} ${u.qty(qty)} ${sym} at ${u.price(a.price)}`, { side });
+
+      recordPlatformFee(S, fee, {
+        type: 'market',
+        symbol: sym,
+        side
+      });
+
+      S.log(
+        'trade',
+        `${side === 'buy' ? 'Bought' : 'Sold'} ${u.qty(qty)} ${sym} at ${u.price(a.price)}`,
+        { side }
+      );
+
       S.commit();
-      return { ok: true, msg: `${side === 'buy' ? 'Bought' : 'Sold'} ${u.qty(qty)} ${sym}` };
+
+      return {
+        ok: true,
+        msg: `${side === 'buy' ? 'Bought' : 'Sold'} ${sym === '' ? '' : u.qty(qty) + ' '}${sym}`,
+        fee
+      };
     },
+
     limit(sym, side, qty, price) {
-      const S = PT.store, fee = PT.config.fees.spot;
-      if (!(qty > 0) || !(price > 0)) return fail('Enter a price and amount.');
-      if (side === 'buy') { if (!S.debit('USDT', price * qty * (1 + fee))) return fail('Not enough USDT for this order.'); }
-      else if (!S.debit(sym, qty)) return fail('Not enough ' + sym + ' to sell.');
-      S.s.orders.push({ id: u.uid('o'), sym, side, qty, price, t: Date.now() });
+      const S = PT.store;
+      const feeRate = PT.config.fees.spot;
+
+      if (!bySym[sym]) return fail('Unknown trading asset.');
+      if (side !== 'buy' && side !== 'sell') {
+        return fail('Invalid order side.');
+      }
+      if (!(qty > 0) || !(price > 0) ||
+          !Number.isFinite(qty) || !Number.isFinite(price)) {
+        return fail('Enter a valid price and amount.');
+      }
+
+      if (side === 'buy') {
+        const reserve = price * qty * (1 + feeRate);
+
+        if (!S.debit('USDT', reserve)) {
+          return fail('Not enough USDT for this order.');
+        }
+      } else {
+        if (!S.debit(sym, qty)) {
+          return fail('Not enough ' + sym + ' to sell.');
+        }
+      }
+
+      S.s.orders.push({
+        id: u.uid('o'),
+        sym,
+        side,
+        qty,
+        price,
+        t: Date.now()
+      });
+
       S.commit();
+
       return { ok: true, msg: 'Limit order placed' };
     },
+
     cancel(id) {
-      const S = PT.store, i = S.s.orders.findIndex((o) => o.id === id);
+      const S = PT.store;
+      const i = S.s.orders.findIndex((o) => o.id === id);
+
       if (i < 0) return;
-      const o = S.s.orders[i], fee = PT.config.fees.spot;
-      if (o.side === 'buy') S.credit('USDT', o.price * o.qty * (1 + fee)); else S.credit(o.sym, o.qty);
+
+      const o = S.s.orders[i];
+      const feeRate = PT.config.fees.spot;
+
+      if (o.side === 'buy') {
+        S.credit('USDT', o.price * o.qty * (1 + feeRate));
+      } else {
+        S.credit(o.sym, o.qty);
+      }
+
       S.s.orders.splice(i, 1);
       S.commit();
     },
+
     sweep() {
-      const S = PT.store, fee = PT.config.fees.spot;
-      const list = S.s.orders; if (!list.length) return;
+      const S = PT.store;
+      const feeRate = PT.config.fees.spot;
+      const list = S.s.orders;
+
+      if (!list.length) return;
+
       let changed = false;
+
       for (let i = list.length - 1; i >= 0; i--) {
-        const o = list[i], a = bySym[o.sym];
-        const hit = o.side === 'buy' ? a.price <= o.price : a.price >= o.price;
+        const o = list[i];
+        const a = bySym[o.sym];
+
+        if (!a) continue;
+
+        const hit = o.side === 'buy'
+          ? a.price <= o.price
+          : a.price >= o.price;
+
         if (!hit) continue;
-        if (o.side === 'buy') S.credit(o.sym, o.qty); else S.credit('USDT', o.price * o.qty * (1 - fee));
-        S.log('trade', `Limit ${o.side} filled: ${u.qty(o.qty)} ${o.sym} at ${u.price(o.price)}`, { side: o.side });
-        PT.ui.toast(`Limit ${o.side} filled: ${u.qty(o.qty)} ${o.sym}`, 'ok');
-        list.splice(i, 1); changed = true;
+
+        const tradeValue = o.price * o.qty;
+        const fee = tradeValue * feeRate;
+
+        if (o.side === 'buy') {
+          S.credit(o.sym, o.qty);
+        } else {
+          S.credit('USDT', tradeValue - fee);
+        }
+
+        recordPlatformFee(S, fee, {
+          type: 'limit',
+          symbol: o.sym,
+          side: o.side
+        });
+
+        S.log(
+          'trade',
+          `Limit ${o.side} filled: ${u.qty(o.qty)} ${o.sym} at ${u.price(o.price)}`,
+          { side: o.side }
+        );
+
+        PT.ui.toast(
+          `Limit ${o.side} filled: ${u.qty(o.qty)} ${o.sym}`,
+          'ok'
+        );
+
+        list.splice(i, 1);
+        changed = true;
       }
+
       if (changed) S.commit();
     },
+
+    // Read-only summary of demo platform fee revenue.
+    platformFees() {
+      const S = PT.store;
+
+      return {
+        totalUSDT: Number(S.s.platformFeesUSDT || 0),
+        history: Array.isArray(S.s.platformFeeHistory)
+          ? [...S.s.platformFeeHistory]
+          : []
+      };
+    }
   };
 })();

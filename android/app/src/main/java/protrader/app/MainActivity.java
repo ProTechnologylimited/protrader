@@ -1,0 +1,5 @@
+package protrader.app;
+
+import com.getcapacitor.BridgeActivity;
+
+public class MainActivity extends BridgeActivity {}
